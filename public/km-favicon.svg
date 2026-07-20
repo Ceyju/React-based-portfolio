@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="8" fill="#151416"/>
+  <path d="M32 7 57 32 32 57 7 32Z" fill="none" stroke="#00e8aa" stroke-width="2.5"/>
+  <path d="M19 60h26" stroke="#f75049" stroke-width="2"/>
+  <text x="32" y="37" fill="#00e8aa" font-family="Arial Narrow,Arial,sans-serif" font-size="14" font-weight="700" text-anchor="middle">KM</text>
+</svg>
