@@ -6,6 +6,9 @@ import { projects } from '../data/portfolio';
 export default function ProjectsPage() {
   const [active, setActive] = useState(0);
   const project = projects[active];
+  const mediaUrl = project.media
+    ? `${import.meta.env.BASE_URL}${project.media.replace(/^\/+/, '')}`
+    : null;
   const move = (direction) => setActive((active + direction + projects.length) % projects.length);
 
   return (
@@ -14,9 +17,11 @@ export default function ProjectsPage() {
         if (event.key === 'ArrowRight') move(1);
         if (event.key === 'ArrowLeft') move(-1);
       }}>
-        <article className="project-visual" aria-label={`${project.title} project visual`}>
+        <article className={`project-visual${project.media ? ' has-media' : ''}`} aria-label={`${project.title} project visual`}>
+          {project.media
+            ? <img className="project-thumbnail" src={mediaUrl} alt={`${project.title} project preview`} />
+            : <div className="project-glyph"><span>{project.title.slice(0, 2).toUpperCase()}</span></div>}
           <div className="project-index">{String(active + 1).padStart(2, '0')}</div>
-          <div className="project-glyph"><span>{project.title.slice(0, 2).toUpperCase()}</span></div>
           <p>{project.eyebrow}</p>
           <div className="project-status">STATUS // {project.status.toUpperCase()}</div>
         </article>

@@ -78,7 +78,7 @@ export const projects = [
     repoUrl: 'https://github.com/Ceyju/megiddo',
     demoUrl: 'https://megiddo-gamma.vercel.app',
     status: 'live',
-    media: null,
+    media: '/Megiddo_thumbnail.png',
   },
   {
     id: 'pet-ehealth-tracker',
@@ -90,7 +90,7 @@ export const projects = [
     repoUrl: 'https://github.com/Ceyju/pet-ehealth-tracker',
     demoUrl: 'https://joycare-delta.vercel.app',
     status: 'live',
-    media: null,
+    media: '/JoyCare_thumbnail.png',
   },
   {
     id: 'tracking-project',
