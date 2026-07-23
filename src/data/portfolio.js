@@ -7,7 +7,7 @@ export const profile = {
   githubHandle: 'Ceyju',
   summary:
     'Full-stack developer specializing in backend architecture, SQL optimization, and healthcare information systems. I build production-grade systems that reduce operational overhead, enforce compliance, and make critical data more reliable.',
-  specialties: ['Backend architecture', 'Healthcare systems', 'SQL optimization'],
+  specialties: ['Backend architecture', 'Database Management', 'SQL optimization', 'API Integration', 'Workflow Automation'],
   education: {
     school: 'Bicol University',
     degree: 'BS Computer Science',
@@ -146,7 +146,7 @@ export const skills = {
   languages: ['JavaScript', 'TypeScript', 'Python', 'PHP', 'C', 'C++', 'C#', 'HTML', 'CSS'],
   frameworks: ['React', 'Next.js', 'Vue.js', 'Laravel', 'CodeIgniter'],
   infrastructure: ['SQL', 'Supabase', 'Docker', 'Vercel'],
-  practices: ['REST APIs', 'RBAC', 'Rate limiting', 'HLS streaming', 'Disaster recovery'],
+  practices: ['REST APIs', 'RBAC', 'Rate limiting', 'HLS streaming', 'Server-side Authorization'],
 };
 
 export const fallbackGitHub = {

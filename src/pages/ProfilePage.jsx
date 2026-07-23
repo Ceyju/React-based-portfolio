@@ -14,7 +14,9 @@ export default function ProfilePage() {
         <article className="hud-panel education-panel">
           <span className="panel-label">EDUCATION LOG</span>
           <h2>{profile.education.school}</h2>
-          <p>{profile.education.degree}</p><small>{profile.education.period}</small>
+          <p>{profile.education.degree}</p>
+          <small>{profile.education.period}</small>
+          <span className="panel-label certifications-label">Certifications</span>
           <div className="cert-list">{profile.certifications.map((item, index) => <p key={item}><b>0{index + 1}</b>{item}</p>)}</div>
         </article>
         <article className="hud-panel skills-panel">
