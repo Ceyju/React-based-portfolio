@@ -112,7 +112,7 @@ export const projects = [
     highlights: ['Format selection', 'Python service', 'Browser client', 'Docker-ready'],
     technologies: ['Python', 'JavaScript', 'HTML'],
     repoUrl: 'https://github.com/Ceyju/ytdl',
-    demoUrl: 'https://ytdl-bxd.pages.dev/',
+    demoUrl: null,
     status: 'down',
     media: null,
   },
