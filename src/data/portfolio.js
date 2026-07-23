@@ -101,7 +101,7 @@ export const projects = [
     technologies: ['Laravel', 'React', 'SQL Server', 'Leaflet'],
     repoUrl: 'https://github.com/Ceyju/tracking-project',
     demoUrl: null,
-    status: 'v1',
+    status: 'work in progress - v2',
     media: null,
   },
   {
@@ -113,7 +113,7 @@ export const projects = [
     technologies: ['Python', 'JavaScript', 'HTML'],
     repoUrl: 'https://github.com/Ceyju/ytdl',
     demoUrl: 'https://ytdl-bxd.pages.dev/',
-    status: 'wip',
+    status: 'down',
     media: null,
   },
   {
