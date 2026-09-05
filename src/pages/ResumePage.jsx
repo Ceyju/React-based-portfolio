@@ -6,7 +6,7 @@ const portraitUrl = encodeURI(`${import.meta.env.BASE_URL}Mejorada, Kurt Angelo 
 
 export default function ResumePage() {
   return (
-    <PageShell eyebrow="SYS.06 // RESUME" title="PERSONNEL RECORD" description="A complete, printable record of experience, projects, skills, and education." className="resume-page">
+    <PageShell eyebrow="SYS.06 // RESUME" title="PERSONNEL RECORD" className="resume-page">
       <div className="resume-layout">
         <div className="resume-viewer hud-panel">
           <object data={resumeUrl} type="application/pdf" aria-label="Kurt Angelo Mejorada résumé">
