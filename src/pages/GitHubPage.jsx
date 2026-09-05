@@ -39,7 +39,7 @@ export default function GitHubPage() {
         <article className="hud-panel push-panel">
           <span className="panel-label">PUSH EVENTS</span>
           {data.pushes.length ? data.pushes.slice(0, 4).map((push) => (
-            <div className="push-row" key={push.id}><i /><span><strong>{push.repository}</strong><small>{push.ref} // {push.count} commit{push.count === 1 ? '' : 's'}</small></span><time>{new Date(push.date).toLocaleDateString()}</time></div>
+            <div className="push-row" key={push.id}><i /><span><strong>{push.repository}</strong><small>{push.ref} // {Number.isInteger(push.count) ? `${push.count} commit${push.count === 1 ? '' : 's'}` : 'commit count unavailable'}</small></span><time>{new Date(push.date).toLocaleDateString()}</time></div>
           )) : <p className="empty-state">No recent featured-repository push events returned.</p>}
           <a className="text-link" href="https://github.com/Ceyju" target="_blank" rel="noreferrer">OPEN FULL GITHUB PROFILE ↗</a>
         </article>

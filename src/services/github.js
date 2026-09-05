@@ -1,6 +1,6 @@
 import { fallbackGitHub, featuredRepositories } from '../data/portfolio';
 
-export const CACHE_KEY = 'km-github-dashboard-v1';
+export const CACHE_KEY = 'km-github-dashboard-v2';
 export const CACHE_TTL = 60 * 60 * 1000;
 const API_ROOT = 'https://api.github.com';
 const API_HEADERS = {
@@ -43,10 +43,36 @@ export function normalizePushes(events) {
       id: event.id,
       repository: event.repo.name.split('/')[1],
       date: event.created_at,
-      count: event.payload.size || event.payload.commits?.length || 0,
+      count: Number.isInteger(event.payload.size)
+        ? event.payload.size
+        : Array.isArray(event.payload.commits)
+          ? event.payload.commits.length
+          : null,
       ref: event.payload.ref?.replace('refs/heads/', '') || 'default',
+      before: event.payload.before,
+      head: event.payload.head,
     }))
-    .slice(0, 6);
+    .slice(0, 4);
+}
+
+export async function enrichPushCounts(pushes, { signal, requestFn = request } = {}) {
+  return mapWithConcurrency(pushes, 2, async (push) => {
+    if (Number.isInteger(push.count) || !push.before || !push.head || /^0+$/.test(push.before)) return push;
+
+    try {
+      const comparison = await requestFn(
+        `/repos/Ceyju/${push.repository}/compare/${push.before}...${push.head}`,
+        signal,
+      );
+      return {
+        ...push,
+        count: Number.isInteger(comparison.total_commits) ? comparison.total_commits : null,
+      };
+    } catch (error) {
+      if (error.name === 'AbortError') throw error;
+      return push;
+    }
+  });
 }
 
 export function readCache(now = Date.now()) {
@@ -101,19 +127,22 @@ export async function fetchGitHubDashboard({ signal } = {}) {
     const publicFeatured = featuredRepositories.filter((name) =>
       repositories.some((repo) => repo.name === name && !repo.fork && !repo.archived),
     );
-    const details = await mapWithConcurrency(publicFeatured, 2, async (repository) => {
-      const [languages, commits] = await Promise.all([
-        request(`/repos/Ceyju/${repository}/languages`, signal),
-        request(`/repos/Ceyju/${repository}/commits?per_page=3`, signal),
-      ]);
-      return { repository, languages, commits };
-    });
+    const [details, pushes] = await Promise.all([
+      mapWithConcurrency(publicFeatured, 2, async (repository) => {
+        const [languages, commits] = await Promise.all([
+          request(`/repos/Ceyju/${repository}/languages`, signal),
+          request(`/repos/Ceyju/${repository}/commits?per_page=3`, signal),
+        ]);
+        return { repository, languages, commits };
+      }),
+      enrichPushCounts(normalizePushes(events), { signal }),
+    ]);
 
     const data = {
       profile,
       languages: aggregateLanguages(details.map((entry) => entry.languages)),
       commits: normalizeCommits(details),
-      pushes: normalizePushes(events),
+      pushes,
     };
     writeCache(data);
     return { ...data, source: 'live' };
